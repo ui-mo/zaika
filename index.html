@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundSphere | Premium Audio Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #000;
+            --secondary: #f5f5f7;
+            --accent: #25D366;
+            --text: #1d1d1f;
+            --light-text: #86868b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #fff;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 22px;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+        }
+        
+        .logo {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 24px;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        
+        .cart-icon {
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--secondary);
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .hero p {
+            font-size: 28px;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-image {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Products Grid */
+        .products-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+            font-weight: 600;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background-color: var(--secondary);
+            padding: 20px;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .product-description {
+            color: var(--light-text);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .add-to-cart {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #333;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background-color: #fff;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: right 0.3s;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .sidebar.open {
+            right: 0;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: 500;
+        }
+        
+        .close-sidebar {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            font-size: 14px;
+            color: var(--light-text);
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background: #f5f5f7;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .quantity {
+            margin: 0 10px;
+        }
+        
+        .remove-item {
+            color: var(--light-text);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .cart-total {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 20px 0;
+            text-align: right;
+        }
+        
+        .checkout-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #128C7E;
+        }
+        
+        .whatsapp-icon {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        /* Contact Form */
+        .contact-section {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        
+        .contact-form {
+            background-color: var(--secondary);
+            padding: 40px;
+            border-radius: 12px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--light-text);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #333;
+        }
+
+        /* Form success/error states */
+        .contact-form .success {
+            display: none;
+            color: var(--accent);
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        .contact-form .error {
+            display: none;
+            color: #d9230f;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links li {
+            margin: 0 15px 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            color: var(--light-text);
+            font-size: 12px;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 44px;
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+                margin-left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .hero p {
+                font-size: 22px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+            }
+            
+            .sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .sidebar.open {
+                right: 0;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">SoundSphere</div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#Zaika e Dastoor">Zaika e Dastoor</a></li>
+                <li><a href="#cables">Cables</a></li>
+                <li><a href="#custom">Custom Zaika e Dastoor</a></li>
+                <li><a href="#accessories">Accessories</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="cart-icon" id="cart-toggle">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Exotic Taste's at Zaika e Dastoor</h1>
+        <p>Indulge in a great cuisine of Taste u will LOve It.</p>
+        <img src="https://via.placeholder.com/800x400" alt="Premium Zaika e Dastoor" class="hero-image">
+    </section>
+
+    <!-- Zaika e Dastoor Section -->
+    <section id="Zaika e Dastoor" class="products-section">
+        <h2 class="section-title">Our Zaika e Dastoor Collection</h2>
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt=" Zaika e Dastoor Cuisine Special " class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name"> Zaika e Dastoor Fried Rice</h3>
+                    <div class="product-price">₹299.99</div>
+                    <p class="product-description">  Zaika e Dastoor Fried Rice , u should try it once , you'll love it .</p>
+                    <button class="add-to-cart" data-id="1" data-name=" Zaika e Dastoor" data-price="₹299.99">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt=" Zaika e Dastoor All Time Favourite" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Chicken Tikka FRY  </h3>
+                    <div class="product-price">₹199.99</div>
+                    <p class="product-description">Chicken Tikka FRY, the TASTE won't let u forget it . It's SO damn delicious.</p>
+                    <button class="add-to-cart" data-id="2" data-name="Chicken Tikka FRY" data-price="₹199.99">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt=" BIRYANI " class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Biryani (NO words to describe it) </h3>
+                    <div class="product-price">₹159.99</div>
+                    <p class="product-description">Deep bass wireless Zaika e Dastoor with water resistance and touch controls.</p>
+                    <button class="add-to-cart" data-id="3" data-name="Biryani (NO words to describe it) " data-price="₹159.99">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Akhni Pulao " class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Akhni Pulao ,  </h3>
+                    <div class="product-price">₹349.99</div>
+                    <p class="product-description">After eating It u'll say ALhamdulillah For such a tasty food.</p>
+                    <button class="add-to-cart" data-id="4" data-name="Studio Elite Pro" data-price="₹349.99">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cables Section -->
+    <section id="cables" class="products-section" style="margin-top: 100px;">
+        <h2 class="section-title">Premium Cables</h2>
+        <div class="products-grid">
+            <!-- Cable 1 -->
+            <div class="product-card">
+                <img src="" alt="Pro Audio Cable" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Pro Audio Cable</h3>
+                    <div class="product-price">$29.99</div>
+                    <p class="product-description">High-fidelity audio cable with gold-plated connectors for superior sound.</p>
+                    <button class="add-to-cart" data-id="5" data-name="Pro Audio Cable" data-price="29.99">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Cable 2 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Braided USB-C Cable" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Braided USB-C Cable</h3>
+                    <div class="product-price">$19.99</div>
+                    <p class="product-description">Durable braided cable with fast charging and data transfer.</p>
+                    <button class="add-to-cart" data-id="6" data-name="Braided USB-C Cable" data-price="19.99">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Zaika e Dastoor Section -->
+    <section id="custom" class="products-section" style="margin-top: 100px;">
+        <h2 class="section-title">Custom Zaika e Dastoor</h2>
+        <div class="products-grid">
+            <!-- Custom 1 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Custom Fit Pro" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Custom Fit Pro</h3>
+                    <div class="product-price">$349.99</div>
+                    <p class="product-description">Professional custom-molded Zaika e Dastoor with personalized sound profile.</p>
+                    <button class="add-to-cart" data-id="7" data-name="Custom Fit Pro" data-price="349.99">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Custom 2 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Signature Custom" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Signature Custom</h3>
+                    <div class="product-price">$499.99</div>
+                    <p class="product-description">Luxury custom Zaika e Dastoor with artisan craftsmanship and premium materials.</p>
+                    <button class="add-to-cart" data-id="8" data-name="Signature Custom" data-price="499.99">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section id="accessories" class="products-section" style="margin-top: 100px;">
+        <h2 class="section-title">Accessories</h2>
+        <div class="products-grid">
+            <!-- Accessory 1 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Charging Case" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Wireless Charging Case</h3>
+                    <div class="product-price">$49.99</div>
+                    <p class="product-description">Sleek charging case with wireless charging capability.</p>
+                    <button class="add-to-cart" data-id="9" data-name="Wireless Charging Case" data-price="49.99">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Accessory 2 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Earbud Tips" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Premium Earbud Tips</h3>
+                    <div class="product-price">$14.99</div>
+                    <p class="product-description">Set of premium silicone and foam earbud tips for perfect fit.</p>
+                    <button class="add-to-cart" data-id="10" data-name="Premium Earbud Tips" data-price="14.99">Add to Cart</button>
+                </div>
+            </div>
+            
+            <!-- Accessory 3 -->
+            <div class="product-card">
+                <img src="https://via.placeholder.com/300x300" alt="Carrying Case" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">Premium Carrying Case</h3>
+                    <div class="product-price">$24.99</div>
+                    <p class="product-description">Durable carrying case with water-resistant exterior.</p>
+                    <button class="add-to-cart" data-id="11" data-name="Premium Carrying Case" data-price="24.99">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sidebar Cart -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title">Your Cart</h3>
+            <button class="close-sidebar" id="close-sidebar">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be added here dynamically -->
+            <p class="empty-cart-message">Your cart is empty</p>
+        </div>
+        <div class="cart-total" id="cart-total">
+            Total: $0.00
+        </div>
+        <button class="checkout-btn" id="checkout-btn">
+            <i class="fab fa-whatsapp whatsapp-icon"></i>
+            Checkout via WhatsApp
+        </button>
+    </div>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Contact Us</h2>
+        <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject">
+                    <option value="general">General Inquiry</option>
+                    <option value="product">Product Question</option>
+                    <option value="order">Order Status</option>
+                    <option value="custom">Custom Zaika e Dastoor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+            
+            <!-- Form submission messages -->
+            <div class="success" id="success-message">
+                Thank you! Your message has been sent successfully.
+            </div>
+            <div class="error" id="error-message">
+                There was an error sending your message. Please try again later.
+            </div>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <ul class="footer-links">
+            <li><a href="#Zaika e Dastoor">Zaika e Dastoor</a></li>
+            <li><a href="#cables">Cables</a></li>
+            <li><a href="#custom">Custom Zaika e Dastoor</a></li>
+            <li><a href="#accessories">Accessories</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+        </ul>
+        <p class="copyright">&copy; 2023 SoundSphere. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        const sidebar = document.getElementById('sidebar');
+        const cartToggle = document.getElementById('cart-toggle');
+        const closeSidebar = document.getElementById('close-sidebar');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const cartCount = document.getElementById('cart-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const contactForm = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+        const errorMessage = document.getElementById('error-message');
+        
+        // Toggle sidebar
+        cartToggle.addEventListener('click', () => {
+            sidebar.classList.add('open');
+        });
+        
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+        
+        // Add to cart
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const price = parseFloat(button.getAttribute('data-price'));
+                
+                // Check if item already in cart
+                const existingItem = cart.find(item => item.id === id);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id,
+                        name,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                sidebar.classList.add('open');
+            });
+        });
+        
+        // Update cart UI
+        function updateCart() {
+            // Update cart items
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty</p>';
+            } else {
+                cartItemsContainer.innerHTML = '';
+                cart.forEach(item => {
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.className = 'cart-item';
+                    cartItemElement.innerHTML = `
+                        <img src="https://via.placeholder.com/60x60" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                                <span class="quantity">${item.quantity}</span>
+                                <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                            </div>
+                            <div class="remove-item" data-id="${item.id}">Remove</div>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItemElement);
+                });
+                
+                // Add event listeners to quantity buttons
+                document.querySelectorAll('.quantity-btn.minus').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            updateCart();
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.quantity-btn.plus').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        const item = cart.find(item => item.id === id);
+                        item.quantity += 1;
+                        updateCart();
+                    });
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        cart = cart.filter(item => item.id !== id);
+                        updateCart();
+                    });
+                });
+            }
+            
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // WhatsApp checkout
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) return;
+            
+            let message = `Hello SoundSphere! I'd like to order:\n\n`;
+            
+            cart.forEach(item => {
+                message += `${item.name} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}\n`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            message += `\nTotal: $${total.toFixed(2)}\n\n`;
+            message += `My shipping details:\nName: \nAddress: \nPhone: `;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/1234567890?text=${encodedMessage}`, '_blank');
+        });
+        
+        // Handle form submission with Formspree
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            
+            // Submit to Formspree
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    this.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            const isOpen = navLinks.style.display === 'flex';
+            navLinks.style.display = isOpen ? 'none' : 'flex';
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a, .footer-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                // Don't prevent default for footer policy links
+                if(this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 768) {
+                            navLinks.style.display = 'none';
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
